@@ -197,8 +197,8 @@
 		9E72796723418F4100573113 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				9E72796823418FA700573113 /* Resources.swift */,
 				9E72796A23419FD900573113 /* ResourcesProtocol.swift */,
+				9E72796823418FA700573113 /* Resources.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";

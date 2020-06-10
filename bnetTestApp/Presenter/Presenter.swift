@@ -10,7 +10,7 @@ import Foundation
 
 //MARK: - • Class
 
-class Presenter {
+final class Presenter {
     
     //MARK: • Properties
     
@@ -72,10 +72,10 @@ extension Presenter: PresenterViewProtocol {
     
     func takeEntries() {
         self.view?.showLoader()
-        self.resorces.fetchSessionID { result in
+        self.resorces.fetchSessionID { [unowned self] result in
             switch result {
             case .success(_):
-                self.resorces.fetchEntries({ result in
+                self.resorces.fetchEntries({ [unowned self] result in
                     switch result {
                     case .success(let entries):
                         self.createListContent(from: entries)
@@ -104,10 +104,10 @@ extension Presenter: PresenterViewProtocol {
     
     func addEntry(with content: String) {
         self.view?.showLoader()
-        self.resorces.addNewEnrty(with: content) { result in
+        self.resorces.addNewEnrty(with: content) { [unowned self] result in
             switch result {
             case .success(let entryID):
-                self.resorces.fetchEntries({ result in
+                self.resorces.fetchEntries({ [unowned self] result in
                     switch result {
                     case .success(let entries):
                         guard let index = entries.firstIndex(where: { $0.id == entryID })

@@ -17,5 +17,6 @@ protocol PresenterViewProtocol {
     func takeEntries()
     func prepareFullEntry(with index: Int) -> EntryContent
     func addEntry(with content: String)
+    
 }
 

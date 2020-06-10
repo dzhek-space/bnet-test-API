@@ -65,8 +65,6 @@ class TableViewController: UITableViewController {
         self.performSegue(withIdentifier: CodeItem.addSegue, sender: self.addButton)
     }
     
-//    private func hideLoader
-    
     private func showMessage(_ message: String, _ action: (() -> Void)? = nil) {
         let messageVC = MessageViewController()
         messageVC.infoLabel.text = message

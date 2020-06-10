@@ -10,7 +10,7 @@ import Foundation
 
 //MARK: - • Class
 
-class Resources: ResourcesProtocol {
+final class Resources: ResourcesProtocol {
 
     //MARK: • Properties
     
@@ -23,7 +23,7 @@ class Resources: ResourcesProtocol {
         if  let sessionID = UserDefaults.standard.string(forKey: "sessionID") {
             completion(.success(sessionID))
         } else {
-            DispatchQueue.global(qos: .default).async(execute: {
+            DispatchQueue.global(qos: .default).async {
                 let parameters = ["a": "new_session"]
                 let newSession = GetNewSessionID(with: parameters)
                 newSession.upload { result in
@@ -40,7 +40,7 @@ class Resources: ResourcesProtocol {
                         completion(.failure(error))
                     }
                 }
-            })
+            }
         }
         
     }
@@ -48,7 +48,7 @@ class Resources: ResourcesProtocol {
     func fetchEntries( _ completion: @escaping (Result<[Entry]>) -> Void) {
         guard let sessionID = UserDefaults.standard.string(forKey: "sessionID")
             else { return }
-        DispatchQueue.global(qos: .default).async(execute: {
+        DispatchQueue.global(qos: .default).async {
             let parameters = ["session": sessionID, "a": "get_entries"]
             let getEntries = GetEntries(with: parameters)
             getEntries.upload { result in
@@ -65,13 +65,14 @@ class Resources: ResourcesProtocol {
                     completion(.failure(error))
                 }
             }
-        })
+        }
+        
     }
     
     func addNewEnrty(with content: String, _ completion: @escaping (Result<String>) -> Void) {
         guard let sessionID = UserDefaults.standard.string(forKey: "sessionID")
             else { return }
-        DispatchQueue.global(qos: .default).async(execute: {
+        DispatchQueue.global(qos: .default).async {
             let parameters = ["session": sessionID, "a": "add_entry", "body": content]
             let addEntry = AddEntry(with: parameters)
             addEntry.upload { result in
@@ -88,7 +89,8 @@ class Resources: ResourcesProtocol {
                 }
                 
             }
-        })
+        }
+        
     }
 
 }
